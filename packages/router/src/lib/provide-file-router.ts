@@ -3,14 +3,20 @@ import {
   EnvironmentProviders,
   makeEnvironmentProviders,
 } from '@angular/core';
-import { provideRouter, RouterFeatures, ROUTES, Routes } from '@angular/router';
+import {
+  provideRouter,
+  RouterFeatures,
+  ROUTES,
+  Routes,
+  withRouterResources,
+} from '@angular/router';
+import type { Route } from '@angular/router';
 import { API_PREFIX } from '@analogjs/router/tokens';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS as HTTP_ROOT_INTERCEPTOR_FNS } from '@angular/common/http';
 
 import { routes } from './routes';
 import { updateMetaTagsOnRouteChange } from './meta-tags';
 import { cookieInterceptor } from './cookie-interceptor';
-
 declare const ANALOG_API_PREFIX: string;
 
 /**
@@ -27,9 +33,14 @@ export function provideFileRouter(
   const extraRoutesFeature = features.filter((feat) => feat.ɵkind >= 100);
   const routerFeatures = features.filter((feat) => feat.ɵkind < 100);
 
+  const hasResourcesFeature = routerFeatures.some((feat) => feat.ɵkind === 12);
+  const finalRouterFeatures = hasResourcesFeature
+    ? routerFeatures
+    : [withRouterResources(), ...routerFeatures];
+
   return makeEnvironmentProviders([
     extraRoutesFeature.map((erf) => erf.ɵproviders),
-    provideRouter(routes, ...routerFeatures),
+    provideRouter(routes, ...finalRouterFeatures),
     {
       provide: ENVIRONMENT_INITIALIZER,
       multi: true,

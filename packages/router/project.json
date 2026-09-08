@@ -9,6 +9,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "outputs": ["{workspaceRoot}/node_modules/@analogjs/router"],
+      "dependsOn": ["^build"],
       "options": {
         "project": "packages/router/ng-package.json"
       },

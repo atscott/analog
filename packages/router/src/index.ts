@@ -41,3 +41,7 @@ export type {
   ServerFnMethod,
   StandardSchemaV1,
 } from './lib/server-fn/types';
+
+export * from './lib/types';
+export * from './lib/facade';
+export * from './lib/generator/route-tree-generator';

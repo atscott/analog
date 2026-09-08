@@ -59,6 +59,10 @@
         "./node_modules/@analogjs/vite-plugin-angular",
         "./packages/vite-plugin-angular/src/index.ts"
       ],
+      "@analogjs/vite-plugin-angular/setup-vitest": [
+        "./node_modules/@analogjs/vite-plugin-angular/setup-vitest",
+        "./packages/vite-plugin-angular/setup-vitest.ts"
+      ],
       "@analogjs/vite-plugin-nitro": [
         "./node_modules/@analogjs/vite-plugin-nitro",
         "./packages/vite-plugin-nitro/src/index.ts"
@@ -82,6 +86,18 @@
       "@analogjs/vitest-angular/setup-zone": [
         "./node_modules/@analogjs/vitest-angular/setup-zone",
         "./packages/vitest-angular/setup-zone.ts"
+      ],
+      "@angular/router": [
+        "./node_modules/@angular/router",
+        "../angular/dist/bin/packages/router/npm_package"
+      ],
+      "@angular/router/testing": [
+        "./node_modules/@angular/router/testing",
+        "../angular/dist/bin/packages/router/npm_package/types/testing.d.ts"
+      ],
+      "@angular/router/upgrade": [
+        "./node_modules/@angular/router/upgrade",
+        "../angular/dist/bin/packages/router/npm_package/types/upgrade.d.ts"
       ],
       "libs/card": ["./libs/card/src/index.ts"],
       "my-package": [

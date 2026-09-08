@@ -4,6 +4,7 @@ import { expect, vi } from 'vitest';
 import { RouteExport, RouteMeta } from './models';
 import { createRoutes, Files } from './routes';
 import { ROUTE_META_TAGS_KEY } from './meta-tags';
+import { createFileRoute } from './facade/file-route';
 
 describe('routes', () => {
   class RouteComponent {}
@@ -737,6 +738,31 @@ Testing nested markdown routes.
 
       await route.loadChildren?.();
 
+      expect(spy).not.toHaveBeenCalledWith(
+        `[Analog] Missing default export at ${fileName}`,
+      );
+    });
+
+    it('should detect Route definition exported as Route without default export', async () => {
+      const fileName = '/app/routes/fluent-route.page.ts';
+      const files: Files = {
+        [fileName]: () =>
+          Promise.resolve({
+            Route: createFileRoute('/fluent-route')({
+              component: RouteComponent,
+            }),
+          } as any),
+      };
+
+      const routes = createRoutes(files);
+      const route = routes[0];
+
+      const spy = vi.spyOn(console, 'warn');
+      const innerRoutes = (await route.loadChildren?.()) as Route[];
+
+      expect(innerRoutes.length).toBe(1);
+      expect(innerRoutes[0].component).toBe(RouteComponent);
+      expect(innerRoutes[0].resources).toBeUndefined();
       expect(spy).not.toHaveBeenCalledWith(
         `[Analog] Missing default export at ${fileName}`,
       );
