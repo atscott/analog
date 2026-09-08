@@ -10,7 +10,6 @@ import { ɵHTTP_ROOT_INTERCEPTOR_FNS as HTTP_ROOT_INTERCEPTOR_FNS } from '@angul
 import { routes } from './routes';
 import { updateMetaTagsOnRouteChange } from './meta-tags';
 import { cookieInterceptor } from './cookie-interceptor';
-
 declare const ANALOG_API_PREFIX: string;
 
 /**
